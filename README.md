@@ -21,11 +21,11 @@ void displayAll(FILE *fPtr);
 void depositWithdraw(FILE *fPtr);
 void countAccounts(FILE *fPtr);
 
+// MAIN
 int main()
 {
     FILE *cfPtr;
 
-    // open or create file
     cfPtr = fopen("credit.dat", "rb+");
     if (cfPtr == NULL)
     {
@@ -47,6 +47,7 @@ int main()
         case 6: displayAll(cfPtr); break;
         case 7: depositWithdraw(cfPtr); break;
         case 8: countAccounts(cfPtr); break;
+        case 9: printf("Reserved for future feature\n"); break;
         default: printf("Invalid choice\n");
         }
     }
@@ -55,29 +56,29 @@ int main()
     return 0;
 }
 
-// initialize 100 blank records
+// initialize file
 void initializeFile(FILE *fPtr)
 {
     struct clientData blank = {0, "", "", 0.0};
-
     for (int i = 0; i < 100; i++)
         fwrite(&blank, sizeof(struct clientData), 1, fPtr);
 }
 
-// menu
+// MENU
 unsigned int enterChoice(void)
 {
     unsigned int choice;
 
     printf("\n===== BANK MENU =====\n");
-    printf("1 - Store text file\n");
-    printf("2 - Update account\n");
-    printf("3 - Add new account\n");
-    printf("4 - Delete account\n");
-    printf("5 - Search account\n");
-    printf("6 - Display all\n");
-    printf("7 - Deposit/Withdraw\n");
-    printf("8 - Count accounts\n");
+    printf("1  - Store text file\n");
+    printf("2  - Update account\n");
+    printf("3  - Add new account\n");
+    printf("4  - Delete account\n");
+    printf("5  - Search account\n");
+    printf("6  - Display all\n");
+    printf("7  - Deposit / Withdraw\n");
+    printf("8  - Count accounts\n");
+    printf("9  - Future option\n");
     printf("10 - Exit\n");
     printf("? ");
 
@@ -85,7 +86,7 @@ unsigned int enterChoice(void)
     return choice;
 }
 
-// convert to text file
+// TEXT FILE
 void textFile(FILE *readPtr)
 {
     FILE *writePtr = fopen("accounts.txt", "w");
@@ -110,7 +111,7 @@ void textFile(FILE *readPtr)
     printf("Text file created!\n");
 }
 
-// update balance
+// UPDATE
 void updateRecord(FILE *fPtr)
 {
     struct clientData client;
@@ -140,7 +141,7 @@ void updateRecord(FILE *fPtr)
     printf("Updated!\n");
 }
 
-// add new record
+// ADD
 void newRecord(FILE *fPtr)
 {
     struct clientData client = {0, "", "", 0.0};
@@ -170,7 +171,7 @@ void newRecord(FILE *fPtr)
     printf("Account added!\n");
 }
 
-// delete record
+// DELETE
 void deleteRecord(FILE *fPtr)
 {
     struct clientData client, blank = {0, "", "", 0.0};
@@ -194,7 +195,7 @@ void deleteRecord(FILE *fPtr)
     printf("Deleted!\n");
 }
 
-// search
+// SEARCH
 void searchRecord(FILE *fPtr)
 {
     struct clientData client;
@@ -214,7 +215,7 @@ void searchRecord(FILE *fPtr)
                client.firstName, client.balance);
 }
 
-// display all
+// DISPLAY
 void displayAll(FILE *fPtr)
 {
     struct clientData client;
@@ -232,7 +233,7 @@ void displayAll(FILE *fPtr)
     }
 }
 
-// deposit/withdraw
+// DEPOSIT/WITHDRAW
 void depositWithdraw(FILE *fPtr)
 {
     struct clientData client;
@@ -274,7 +275,7 @@ void depositWithdraw(FILE *fPtr)
     printf("Done!\n");
 }
 
-// count accounts
+// COUNT
 void countAccounts(FILE *fPtr)
 {
     struct clientData client;
@@ -288,7 +289,3 @@ void countAccounts(FILE *fPtr)
 
     printf("Total accounts: %d\n", count);
 }
-
-
-
-
